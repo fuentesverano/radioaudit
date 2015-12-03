@@ -2,7 +2,6 @@ package com.radioaudit.domain.dao;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +32,8 @@ public class UserDAO extends AbstractDAO<User> {
 	public User findByUsername(String username) {
 		User user = this.readBy("username", username);
 		if (user == null) {
-			throw new UsernameNotFoundException("User with email can not be found");
+			// throw new
+			// UsernameNotFoundException("User with email can not be found");
 		}
 		return user;
 	}
@@ -41,7 +41,8 @@ public class UserDAO extends AbstractDAO<User> {
 	public User findByEmail(String email) {
 		User user = this.readBy("email", email);
 		if (user == null) {
-			throw new UsernameNotFoundException("User with email can not be found");
+			// throw new
+			// UsernameNotFoundException("User with email can not be found");
 		}
 		return user;
 	}
