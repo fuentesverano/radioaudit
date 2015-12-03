@@ -1,7 +1,7 @@
 package com.radioaudit.domain.to;
 
 
-public class CreateUserDTO extends UserDTO{
+public class CreateUserDTO extends UserTO{
 	
 	/**
 	 * 

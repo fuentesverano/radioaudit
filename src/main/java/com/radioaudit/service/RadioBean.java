@@ -37,10 +37,10 @@ import com.radioaudit.domain.thread.MpegDecorder;
 import com.radioaudit.domain.thread.WriteCoincidence;
 import com.radioaudit.domain.to.CoincidenceDTO;
 import com.radioaudit.domain.to.FrontRadioDTO;
-import com.radioaudit.domain.to.JingleDTO;
+import com.radioaudit.domain.to.JingleTO;
 import com.radioaudit.domain.to.JingleResultDTO;
 import com.radioaudit.domain.to.PartialCoincidenceTO;
-import com.radioaudit.domain.to.RadioDTO;
+import com.radioaudit.domain.to.RadioTO;
 import com.radioaudit.domain.to.RadioLogDTO;
 import com.radioaudit.domain.to.UpdateRadioDTO;
 
@@ -82,7 +82,7 @@ public class RadioBean {
 	 * @param date
 	 * @return RadioDTO
 	 */
-	public RadioDTO getRadioInfo(String username, String radioCode, Date date) {
+	public RadioTO getRadioInfo(String username, String radioCode, Date date) {
 
 		List<Jingle> userCommercials = this.jingleDAO.findByUsername(username);
 		Radio radio = this.radioDAO.loadByCodeWithSuscribeCommercials(radioCode, username);
@@ -143,13 +143,13 @@ public class RadioBean {
 	 * 
 	 * @return List<RadioDTO>
 	 */
-	public List<RadioDTO> getRadios() {
+	public List<RadioTO> getRadios() {
 
-		List<RadioDTO> radioDTOs = new LinkedList<RadioDTO>();
+		List<RadioTO> radioDTOs = new LinkedList<RadioTO>();
 
 		List<Radio> radios = this.radioDAO.findAll();
 		for (Radio radio : radios) {
-			RadioDTO radioDTO = this.mapRadioDTO(radio);
+			RadioTO radioDTO = this.mapRadioDTO(radio);
 			radioDTOs.add(radioDTO);
 		}
 		return radioDTOs;
@@ -275,9 +275,9 @@ public class RadioBean {
 		return frontRadioDTOs;
 	}
 
-	private RadioDTO mapRadioDTO(Radio radio) {
+	private RadioTO mapRadioDTO(Radio radio) {
 
-		RadioDTO radioDTO = new RadioDTO();
+		RadioTO radioDTO = new RadioTO();
 		radioDTO.setName(radio.getName());
 		radioDTO.setUrl(radio.getUrl());
 		radioDTO.setWebsite(radio.getWebsite());
@@ -287,10 +287,10 @@ public class RadioBean {
 		return radioDTO;
 	}
 
-	private RadioDTO mapRadioDTO(Radio radio, Collection<Jingle> deactivedJingles, Collection<Jingle> activeJingles,
+	private RadioTO mapRadioDTO(Radio radio, Collection<Jingle> deactivedJingles, Collection<Jingle> activeJingles,
 			Collection<Coincidence> coincidences) {
 
-		RadioDTO radioDTO = new RadioDTO();
+		RadioTO radioDTO = new RadioTO();
 		radioDTO.setCode(radio.getCode());
 		radioDTO.setName(radio.getName());
 		radioDTO.setUrl(radio.getUrl());
@@ -299,13 +299,13 @@ public class RadioBean {
 		radioDTO.setBitrate(radio.getBitrate());
 		radioDTO.setActive(radio.isActive() && radio.isConnect());
 
-		List<JingleDTO> deactivedJinglesDTOs = new LinkedList<JingleDTO>();
+		List<JingleTO> deactivedJinglesDTOs = new LinkedList<JingleTO>();
 		for (Jingle jingle : deactivedJingles) {
 			deactivedJinglesDTOs.add(this.mapJingleDTO(jingle));
 		}
 		radioDTO.setDeactivedJingles(deactivedJinglesDTOs);
 
-		List<JingleDTO> activeJinglesDTOs = new LinkedList<JingleDTO>();
+		List<JingleTO> activeJinglesDTOs = new LinkedList<JingleTO>();
 		for (Jingle jingle : activeJingles) {
 			activeJinglesDTOs.add(this.mapJingleDTO(jingle));
 		}
@@ -342,8 +342,8 @@ public class RadioBean {
 		return radioDTO;
 	}
 
-	private JingleDTO mapJingleDTO(Jingle jingle) {
-		JingleDTO jingleDTO = new JingleDTO();
+	private JingleTO mapJingleDTO(Jingle jingle) {
+		JingleTO jingleDTO = new JingleTO();
 		jingleDTO.setTitle(jingle.getName());
 		jingleDTO.setFormat(jingle.getFormat());
 		jingleDTO.setDuration(jingle.getDuration());

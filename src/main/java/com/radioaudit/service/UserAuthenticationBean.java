@@ -10,7 +10,7 @@ import org.springframework.util.DigestUtils;
 
 import com.radioaudit.domain.dao.UserDAO;
 import com.radioaudit.domain.model.User;
-import com.radioaudit.domain.to.UserDTO;
+import com.radioaudit.domain.to.UserTO;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -19,20 +19,20 @@ public class UserAuthenticationBean {
 	@Autowired
 	private UserDAO userDAO;
 
-	public UserDTO authenticate(String username, String password) {
+	public UserTO authenticate(String username, String password) {
 
 		User user = this.userDAO.readByUsername(username);
 		if (user != null) {
 			String passwordMD5 = this.convertToMD5(password);
 			if (StringUtils.equals(passwordMD5, user.getPassword())) {
-				UserDTO userDTO = this.createUserDTO(user);
+				UserTO userDTO = this.createUserDTO(user);
 				return userDTO;
 			}
 		}
 		return null;
 	}
 
-	private UserDTO createUserDTO(User user) {
+	private UserTO createUserDTO(User user) {
 		// TODO Auto-generated method stub
 		return null;
 	}

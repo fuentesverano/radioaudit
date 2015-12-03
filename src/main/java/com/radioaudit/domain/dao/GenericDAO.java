@@ -24,17 +24,14 @@ public abstract class GenericDAO<T> extends HibernateDaoSupport {
 	}
 
 	public void save(T t) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().save(t);
 	}
 
 	public void update(T t) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().update(t);
 	}
 
 	public void delete(T t) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().delete(t);
 	}
 
